@@ -4,6 +4,12 @@
 
 An Android app for controlling Govee BLE smart lights locally over Bluetooth Low Energy.
 
+Currently compatible with:
+
+[Govee RGBICW Smart Floor Lamp Basic - Model H6076](https://ca.govee.com/products/govee-rgbicw-smart-corner-floor-lamp)
+
+![h6076.png](h6076.png)
+
 ## Why?
 
 Requiring yet _another_ account for the 
@@ -13,9 +19,9 @@ share pictures of your RGB lamp? Let me just turn my damn lights on without need
 
 ## How?
 
-I use Kotlin as my daily driver, but have never created an Android app before. While I'm doing the tutorials
-and reading the Android Studio docs, I needed to be able to turn my lamps on and change the 
-brightness etc, ASAP. With this time-constraint, I shamelessly used Claude Code (Sonnet 4.5) to 
+I use Kotlin as my daily driver, but have never created an Android app before. While I'm doing the 
+tutorials and reading the Android Studio docs, I needed to be able to turn my lamps on and change 
+the brightness etc, ASAP. With this time-constraint, I shamelessly used Claude Code (Sonnet 4.5) to 
 agentically produce nearly all of the app. With that in mind, I made sure to cite (hopefully) all of
 the links it used as resources.
 
@@ -25,6 +31,49 @@ the links it used as resources.
 ./gradlew assembleDebug
 ~/Library/Android/sdk/platform-tools/adb install -r -t app/build/intermediates/apk/debug/app-debug.apk
 ```
+
+## How to Configure
+
+Devices and groups are defined in `app/src/main/assets/govee_config.json`. To add your own lights,
+you need three pieces of information per device:
+
+1. **Name** — whatever you want to call it
+2. **MAC address** — the Bluetooth MAC of the Govee device (find it in the Govee Home app under device settings, or via a BLE scanner like [nRF Connect](https://play.google.com/store/apps/details?id=no.nordicsemi.android.mcp))
+3. **Model** — the Govee model number (e.g. `H6076`), which determines which BLE service/characteristic UUIDs and command templates to use
+
+Example config:
+
+```json
+{
+  "models": {
+    "H6076": {
+      "service_uuid": "00010203-0405-0607-0809-0a0b0c0d1910",
+      "write_char_uuid": "00010203-0405-0607-0809-0a0b0c0d2b11",
+      "commands": {
+        "power_on":   "33010100",
+        "power_off":  "33010000",
+        "brightness": "3304{value}",
+        "color":      "33051501{r}{g}{b}00000000007f"
+      }
+    }
+  },
+  "devices": [
+    { "name": "My Lamp", "mac": "AA:BB:CC:DD:EE:FF", "model": "H6076" }
+  ],
+  "groups": [
+    {
+      "name": "Living Room",
+      "devices": ["AA:BB:CC:DD:EE:FF"]
+    }
+  ]
+}
+```
+
+- **models**: Defines the BLE UUIDs and command hex templates for each Govee model. Placeholders like `{value}`, `{r}`, `{g}`, `{b}` are substituted at runtime.
+- **devices**: List of individual lights with their MAC addresses and model reference.
+- **groups**: Optional groupings of devices by MAC address. Sending a command to a group sends it to all member devices.
+
+After editing the config, rebuild and reinstall the app.
 
 ## BLE Protocol References
 
