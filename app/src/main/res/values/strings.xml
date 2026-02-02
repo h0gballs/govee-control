@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Govee Control</string>
+    <string name="action_settings">Settings</string>
+    <string name="first_fragment_label">Devices</string>
+    <string name="second_fragment_label">Control</string>
+
+    <string name="groups_header">Groups</string>
+    <string name="devices_header">Devices</string>
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="control">Control</string>
+    <string name="status_disconnected">Disconnected</string>
+    <string name="status_connecting">Connecting…</string>
+    <string name="status_connected">Connected</string>
+    <string name="all_on">All On</string>
+    <string name="all_off">All Off</string>
+    <string name="power_label">Power</string>
+    <string name="power_on">On</string>
+    <string name="power_off">Off</string>
+    <string name="brightness_label">Brightness</string>
+    <string name="color_label">Color</string>
+    <string name="red_label">Red</string>
+    <string name="green_label">Green</string>
+    <string name="blue_label">Blue</string>
+    <string name="send_color">Send Color</string>
+    <string name="presets_label">Presets</string>
+    <string name="color_temp_label">Color Temperature</string>
+    <string name="warm_label">Warm</string>
+    <string name="cool_label">Cool</string>
+    <string name="temp_byte1_label">Byte 1 (0–255)</string>
+    <string name="temp_byte2_label">Byte 2 (0–255)</string>
+</resources>

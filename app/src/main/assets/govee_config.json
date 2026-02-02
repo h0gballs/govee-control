@@ -1,0 +1,31 @@
+{
+  "models": {
+    "H6076": {
+      "service_uuid": "00010203-0405-0607-0809-0a0b0c0d1910",
+      "write_char_uuid": "00010203-0405-0607-0809-0a0b0c0d2b11",
+      "commands": {
+        "power_on":   "33010100",
+        "power_off":  "33010000",
+        "brightness": "3304{value}",
+        "color":      "33051501{r}{g}{b}00000000007f"
+      }
+    }
+  },
+  "devices": [
+    { "name": "Living Room Lamp L - Govee_H6076_2425", "mac": "CA:38:33:33:24:25", "model": "H6076" },
+    { "name": "Living Room Lamp R - Govee_H6076_6818", "mac": "D4:38:31:39:68:18", "model": "H6076" },
+    { "name": "Office Lamp - Govee_H6076_7543", "mac": "D0:C8:45:46:75:43", "model": "H6076" },
+    { "name": "Bedroom Lamp - Govee_H6076_344A", "mac": "D0:38:33:33:34:4A", "model": "H6076" }
+  ],
+  "groups": [
+    {
+      "name": "All Lights",
+      "devices": [
+        "CA:38:33:33:24:25",
+        "D4:38:31:39:68:18",
+        "D0:C8:45:46:75:43",
+        "D0:38:33:33:34:4A"
+      ]
+    }
+  ]
+}
